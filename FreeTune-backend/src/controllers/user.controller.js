@@ -317,7 +317,7 @@ const deleteUser = asyncHandler(async (req, res) => {
     if(!deleteUser){
         throw new ApiError(500,"account didn't delete")
     }
-
+    
     return res
         .status(200)
         .clearCookie("accessToken", option)
