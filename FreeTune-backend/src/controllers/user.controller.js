@@ -300,10 +300,22 @@ const deleteUser = asyncHandler(async (req, res) => {
         throw new ApiError(405, "invalid username")
     }
 
-    const user = await User.findOneAndDelete(username).select("-password -refreshToken -avatarPublicId")
+    const user = await User.findOne({username})
 
     if (!user) {
         throw new ApiError(501, "error occured while deleting your account")
+    }
+
+    const isPasswordValid = await user.isPasswordValid(password)
+
+    if(!isPasswordValid){
+        throw new ApiError(401,"invalid password")
+    }
+
+    const deleteUser = await User.deleteOne({username}).select("-password -refreshToken -avatarPublicId")
+
+    if(!deleteUser){
+        throw new ApiError(500,"account didn't delete")
     }
 
     return res
@@ -311,7 +323,7 @@ const deleteUser = asyncHandler(async (req, res) => {
         .clearCookie("accessToken", option)
         .clearCookie("refreshToken", option)
         .json(
-            new ApiResponse(200, user, "user account deleted successfully")
+            new ApiResponse(200, deleteUser, "user account deleted successfully")
         )
 
 })
