@@ -69,6 +69,7 @@ const DeleteUser = ({ deleteRef }) => {
     setShowLoader(false)
     if (response.success) {
       toast.success("Account Deleted Successfully", toastOptions)
+      localStorage.removeItem("accessToken")
       setTimeout(() => {
         navigate("/signup")
       }, 650);
