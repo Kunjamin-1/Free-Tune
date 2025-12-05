@@ -181,7 +181,7 @@ const addSharedMusic = asyncHandler(async (req, res) => {
         throw new ApiError(505, "error occured while saving the music")
     }
 
-    const removeSharedMusicFromNotification = await Share.findOneAndDelete(sharedMusicId)
+    const removeSharedMusicFromNotification = await Share.findByIdAndDelete(sharedMusicId)
 
     if (!removeSharedMusicFromNotification) {
         throw new ApiError(404, "removing music from notification failed")

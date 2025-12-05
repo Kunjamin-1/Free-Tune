@@ -143,7 +143,7 @@ const updateUser = asyncHandler(async (req, res) => {
         userWithThisEmail = await User.findOne({ email })
     }
 
-    if (userWithThisEmail) {
+    if (userWithThisUserName) {
         throw new ApiError(400, "username already exists")
     }
     if (userWithThisEmail) {
