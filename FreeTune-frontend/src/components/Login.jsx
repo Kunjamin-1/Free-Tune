@@ -66,7 +66,7 @@ const Login = () => {
             navigate("/")
         } else {
             toast.error(response.message, toastOptions)
-            userLoggedin(false)
+            setShowLoader(false)
         }
     }
     return (
