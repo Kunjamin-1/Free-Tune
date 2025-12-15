@@ -6,7 +6,9 @@ const Sidebar = ({ display, closeSideBar }) => {
     const navigate = useNavigate()
 
     const navigateToProfile = () => {
-        navigate("/user-profile")
+        if (localStorage.getItem("accessToken")) {
+            navigate("/user-profile")
+        }
         closeSideBar()
     }
 
@@ -17,7 +19,7 @@ const Sidebar = ({ display, closeSideBar }) => {
             <nav className="flex flex-col gap-4 mt-6 px-6">
                 <Link
                     to="/"
-                    onClick={()=>closeSideBar()}
+                    onClick={() => closeSideBar()}
                     className={`${location.pathname === '/' ? 'text-purple-400' : 'text-gray-400'
                         } font-medium hover:text-white transition-colors`}
                 >
@@ -26,7 +28,7 @@ const Sidebar = ({ display, closeSideBar }) => {
 
                 <Link
                     to="/library"
-                    onClick={()=>closeSideBar()}
+                    onClick={() => closeSideBar()}
                     className={`${location.pathname === '/library' ? 'text-purple-400' : 'text-gray-400'
                         } font-medium hover:text-white transition-colors`}
                 >
@@ -35,7 +37,7 @@ const Sidebar = ({ display, closeSideBar }) => {
 
                 <Link
                     to="/upload"
-                    onClick={()=>closeSideBar()}
+                    onClick={() => closeSideBar()}
                     className={`${location.pathname === '/upload' ? 'text-purple-400' : 'text-gray-400'
                         } font-medium hover:text-white transition-colors`}
                 >
@@ -44,7 +46,7 @@ const Sidebar = ({ display, closeSideBar }) => {
 
                 <Link
                     to="/recived-song"
-                    onClick={()=>closeSideBar()}
+                    onClick={() => closeSideBar()}
                     className={`${location.pathname === '/recived-song' ? 'text-purple-400' : 'text-gray-400'
                         } font-medium hover:text-white transition-colors`}
                 >

@@ -1,10 +1,10 @@
-import  {  useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Sidebar from './Sidebar'
 
 const Navbar = () => {
   const [sideBarDisplay, setSideBarDisplay] = useState(false)
-  
+
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -12,21 +12,23 @@ const Navbar = () => {
     setSideBarDisplay(!sideBarDisplay)
   }
   useEffect(() => {
-    if(location.pathname === "/"){
+    if (location.pathname === "/") {
       document.querySelector("title").innerText = "FreeTune - Home"
 
-    }else if(location.pathname === "/recived-song"){
+    } else if (location.pathname === "/recived-song") {
       document.querySelector("title").innerText = `FreeTune - RecivedSong`
-    }else if(location.pathname === "/library"){
+    } else if (location.pathname === "/library") {
       document.querySelector("title").innerText = `FreeTune - Library`
-    }else if(location.pathname === "/upload"){
+    } else if (location.pathname === "/upload") {
       document.querySelector("title").innerText = `FreeTune - Upload`
     }
 
   }, [location.pathname])
-  
-  const navigateToProfile = ()=>{
-    navigate("/user-profile")
+
+  const navigateToProfile = () => {
+    if (localStorage.getItem("accessToken")) {
+      navigate("/user-profile")
+    }
   }
   return (
     <header className="bg-[#1F2937]">
@@ -41,33 +43,33 @@ const Navbar = () => {
             </div>
 
             <nav className="hidden md:flex space-x-6">
-              <Link to="/" className={`${location.pathname === "/" &&"text-purple-400" } ${!localStorage.getItem("accessToken") && `pointer-events-none`} font-medium text-gray-400 hover: transition-colors`}>
+              <Link to="/" className={`${location.pathname === "/" && "text-purple-400"} ${!localStorage.getItem("accessToken") && `pointer-events-none`} font-medium text-gray-400 hover: transition-colors`}>
                 Home
               </Link>
               <Link
                 to="/library"
-                className={`${location.pathname === "/library" && "text-purple-400" } ${!localStorage.getItem("accessToken") && `pointer-events-none`} font-medium text-gray-400 hover: transition-colors`}
+                className={`${location.pathname === "/library" && "text-purple-400"} ${!localStorage.getItem("accessToken") && `pointer-events-none`} font-medium text-gray-400 hover: transition-colors`}
               >
                 Library
               </Link>
               <Link
                 to="/upload"
-                className={`${location.pathname === "/upload" && "text-purple-400" } ${!localStorage.getItem("accessToken") && `pointer-events-none`} font-medium text-gray-400 hover: transition-colors`}
+                className={`${location.pathname === "/upload" && "text-purple-400"} ${!localStorage.getItem("accessToken") && `pointer-events-none`} font-medium text-gray-400 hover: transition-colors`}
               >
                 Upload
               </Link>
               <Link
                 to="/recived-song"
-                className={`${location.pathname === "/recived-song" && "text-purple-400" } ${!localStorage.getItem("accessToken") && `pointer-events-none`} font-medium text-gray-400 hover: transition-colors`}
+                className={`${location.pathname === "/recived-song" && "text-purple-400"} ${!localStorage.getItem("accessToken") && `pointer-events-none`} font-medium text-gray-400 hover: transition-colors`}
               >
                 Recived Song
               </Link>
-             
+
             </nav>
           </div>
 
           <div className="hidden cursor-pointer md:flex items-center space-x-4">
-       
+
             <div onClick={navigateToProfile} className=" cursor-pointer bg-white rounded-full flex items-center justify-center">
               <img src="user.svg" alt="user" />
             </div>
@@ -75,7 +77,7 @@ const Navbar = () => {
 
           <div className='md:hidden'>
             <img src="humburger.svg" onClick={toggleSideBar} alt="humburger" />
-            <Sidebar closeSideBar = {toggleSideBar} display={sideBarDisplay} />
+            <Sidebar closeSideBar={toggleSideBar} display={sideBarDisplay} />
           </div>
         </div>
 
