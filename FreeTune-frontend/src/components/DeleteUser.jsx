@@ -12,7 +12,7 @@ const DeleteUser = ({ deleteRef }) => {
   const [tempDetails, setTempDetails] = useState({})
   const [showLoader, setShowLoader] = useState(false)
   const { deleteUser } = useContext(UserContext)
-  const { isSongPlaying,setIsSongPlaying } = useContext(MusicContext)
+  const { isSongPlaying, setIsSongPlaying } = useContext(MusicContext)
   const navigate = useNavigate()
 
   const detailToDeleteAccount = (e) => {
@@ -55,12 +55,12 @@ const DeleteUser = ({ deleteRef }) => {
       throw new Error("confirm password did not match")
     }
 
-    if(isSongPlaying){
+    if (isSongPlaying) {
       setIsSongPlaying(!isSongPlaying)
     }
 
     let { username, password } = tempDetails
-    
+
     setShowLoader(true)
     const response = await deleteUser(
       username.trim(),
@@ -70,9 +70,8 @@ const DeleteUser = ({ deleteRef }) => {
     if (response.success) {
       toast.success("Account Deleted Successfully", toastOptions)
       localStorage.removeItem("accessToken")
-      setTimeout(() => {
-        navigate("/signup")
-      }, 650);
+      navigate("/signup")
+
     } else {
       toast.error(response.message, toastOptions)
     }
@@ -82,7 +81,7 @@ const DeleteUser = ({ deleteRef }) => {
 
   return (
     <div className={`items-center ${deleteBtnClick ? "flex" : "hidden"} justify-center min-h-fit bg-gray-900`}>
-      {showLoader && <Loader/>}
+      {showLoader && <Loader />}
       <ToastContainer
         position="top-right"
         autoClose={5000}
