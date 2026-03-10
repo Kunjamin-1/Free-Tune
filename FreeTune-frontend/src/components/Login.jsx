@@ -59,10 +59,10 @@ const Login = () => {
 
         
         if (response.success) {
-            toast.success(response.message, toastOptions)
             localStorage.setItem("accessToken", response.body.accessToken)
             await getAllMusic()
             setShowLoader(false)
+            toast.success(response.message, toastOptions)
             navigate("/")
         } else {
             toast.error(response.message, toastOptions)
