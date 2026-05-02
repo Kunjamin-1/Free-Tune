@@ -18,8 +18,9 @@ export const fetchFunction = async (endPoints, methodType = "GET", data = null) 
         }
     }
 
-    const request = await fetch(`https://free-tune-backend.onrender.com/api/v1/${endPoints}`, options)
-
+    // const request = await fetch(`https://free-tune-backend.onrender.com/api/v1/${endPoints}`, options)
+    const request = await fetch(` http://localhost:3000/api/v1/${endPoints}`, options)
+   
     if (!request.ok) {
         console.log(`Error occured${request.message?`:- ${request.message}`:"!"}` )
     }
