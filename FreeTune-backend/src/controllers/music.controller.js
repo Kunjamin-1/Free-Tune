@@ -65,7 +65,7 @@ const uploadMusic = asyncHandler(async (req, res) => {
 const getAllMusic = asyncHandler(async (req, res) => {
 
     const allMusic = await Music.find({ user: req?.user?._id }).select("-audioPublicId -thumbnailPublicId")
-    console.log(allMusic)
+
     if (!allMusic) {
         throw new ApiError(500, "error occured while fetching all music")
     }

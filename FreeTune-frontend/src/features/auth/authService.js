@@ -1,3 +1,5 @@
+import {fetchFunction} from "../../fetchFunction"
+
 export const registerUser = async (registerCredentials) => {
   return await fetchFunction("user/registerUser", "POST", registerCredentials);
 };
@@ -29,9 +31,6 @@ export const deleteAvatar = async (avatarPublicId) => {
   return await fetchFunction(`user/deleteAvatar/${avatarPublicId}`, "DELETE");
 };
 
-export const deleteUser = async (username, password) => {
-  return await fetchFunction("user/deleteUser", "DELETE", {
-    username,
-    password,
-  });
+export const deleteUser = async (deleteUserCredentials) => {
+  return await fetchFunction("user/deleteUser", "DELETE", deleteUserCredentials);
 };

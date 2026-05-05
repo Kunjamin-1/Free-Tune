@@ -1,5 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getUserDetails, loginUser, registerUser } from "./authService";
+import {
+  addAvatar,
+  deleteAvatar,
+  deleteUser,
+  getUserDetails,
+  getUserFriendDetail,
+  loginUser,
+  registerUser,
+  updateUser,
+} from "./authService";
 
 export const registerUserThunk = createAsyncThunk(
   "auth/registerUser",
@@ -45,47 +54,84 @@ export const logoutUserThunk = createAsyncThunk(
 
 export const getUserDetailsThunk = createAsyncThunk(
   "auth/getUserDetails",
-  async (_,thunkApi) => {
+  async (_, thunkApi) => {
     try {
-    return await getUserDetails()
+      return await getUserDetails();
     } catch (error) {
-        return thunkApi.rejectWithValue({
-            success:false,
-            message:error.message || "User detail fetch failed"
-        })
+      return thunkApi.rejectWithValue({
+        success: false,
+        message: error.message || "User detail fetch failed",
+      });
     }
   },
 );
 
-export const getUserFriendDetailThunk = createAsyncThunk("auth/");
+export const getUserFriendDetailThunk = createAsyncThunk(
+  "auth/getUserFriendDetail",
+  async (usernameCredentials, thunkApi) => {
+    try {
+      return await getUserFriendDetail(usernameCredentials);
+    } catch (error) {
+      return thunkApi.rejectWithValue({
+        success: false,
+        message: error.message || "Friend not found",
+      });
+    }
+  },
+);
 
-async (username) => {
-  return await fetchFunction(`user/getUserFriendDetails/${username}`, "GET");
-};
+export const updateUserThunk = createAsyncThunk(
+  "auth/updateUser",
+  async (updatedUserCredentails, thunkApi) => {
+    try {
+      return await updateUser(updatedUserCredentails);
+    } catch (error) {
+      return thunkApi.rejectWithValue({
+        success: false,
+        message: error.message || "User detail not updated",
+      });
+    }
+  },
+);
 
-export const updateUserThunk = createAsyncThunk("auth/");
+export const addAvatarThunk = createAsyncThunk(
+  "auth/addAvatar",
+  async (avatarCredentials, thunkApi) => {
+    try {
+      return await addAvatar(avatarCredentials);
+    } catch (error) {
+      return thunkApi.rejectWithValue({
+        success: false,
+        message: error.message || "avatar add failed",
+      });
+    }
+  },
+);
 
-async (data) => {
-  return await fetchFunction("user/updateUser", "PATCH", data);
-};
+export const deleteAvatarThunk = createAsyncThunk(
+  "auth/,deleteAvatar",
+  async (deleteAvatarCrenditals, thunkApi) => {
+    try {
+      return await deleteAvatar(deleteAvatarCrenditals);
+    } catch (error) {
+      return thunkApi.rejectWithValue({
+        success: false,
+        message: error.message || "Avatar deletion failed",
+      });
+    }
+  },
+);
 
-export const addAvatarThunk = createAsyncThunk("auth/");
-
-async (avatarLink) => {
-  return await fetchFunction("user/addAvatar", "POST", avatarLink);
-};
-
-export const deleteAvatarThunk = createAsyncThunk("auth/");
-
-async (avatarPublicId) => {
-  return await fetchFunction(`user/deleteAvatar/${avatarPublicId}`, "DELETE");
-};
-
-export const deleteUserThunk = createAsyncThunk("auth/");
-
-async (username, password) => {
-  return await fetchFunction("user/deleteUser", "DELETE", {
-    username,
-    password,
-  });
-};
+export const deleteUserThunk = createAsyncThunk(
+  "auth/deleteUser",
+  async (deleteUserCredentials,thunkApi) => {
+    try {
+      return await deleteUser(deleteUserCredentials)
+    } catch (error) { 
+      return thunkApi.rejectWithValue({
+        success:false,
+        message:error.message || "user deletion failed"
+      })
+    }
+  },
+);

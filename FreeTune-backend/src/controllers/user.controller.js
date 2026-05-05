@@ -66,26 +66,25 @@ const registerUser = asyncHandler(async (req, res) => {
 
 const loginUser = asyncHandler(async (req, res) => {
 
- 
     const { email, password } = req.body
-    console.log(email)
+
     if (!email || !password) {
         throw new ApiError(400, "Email and Password both are required")
     }
     const user = await User.findOne({ email })
-
+    
     if (!user) {
         throw new ApiError(400, "email does not exist")
     }
 
     const isPasswordValid = await user.isPasswordValid(password)
-
+   
     if (!isPasswordValid) {
         throw new ApiError(401, "incorrect password")
     }
 
     const { accessToken, refreshToken } = await generateAccessTokenRefreshToken(user)
-    console.log(accessToken)
+
     if (!accessToken || !refreshToken) {
         throw new ApiError(500, "Error occured while generate your token")
     }
