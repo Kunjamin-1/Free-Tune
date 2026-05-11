@@ -1,7 +1,8 @@
 import { useState, useContext } from "react";
-import { UserContext } from "../context/user/UserContext"
 import { ToastContainer, toast, Slide } from 'react-toastify';
-import { MusicContext } from "../context/music/MusicContext";
+import { UserContext } from "../../context/user/UserContext";
+import { MusicContext } from "../../context/music/MusicContext";
+import Button from "../ui/Button";
 
 const UpdateProfile = ({setShowLoader}) => {
   const [newUserData, setNewUserData] = useState({ username: "", fullName: "", email: "" })
@@ -132,19 +133,23 @@ const UpdateProfile = ({setShowLoader}) => {
           </div>
         
           <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3 pt-4 border-t border-gray-700">
-            <button
+          <Button
               type="submit"
-              className="flex gap-2 flex-1 justify-center items-center cursor-pointer bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 px-6 py-3 rounded-lg transition-all duration-200 font-medium"
+              buttonStyle="flex-1 gap-2 bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 px-6 py-3 rounded-lg transition-all duration-200 font-medium"
+              svgSrc="/save.svg"
+              svgAlt="save"
             >
-              <img src="save.svg" alt="save" className="h-4" />Save Changes
-            </button>
-            <button
-              onClick={resetNewData}
+              Save Changes
+            </Button>
+            <Button
+              buttonFunction={resetNewData}
               type="button"
-              className="flex flex-1 justify-center items-center gap-2 cursor-pointer bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-lg transition-colors font-medium"
+              buttonStyle=" flex-1 gap-2 bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-lg transition-colors font-medium"
+              svgSrc="reset.svg"
+              svgAlt="reset"
             >
-              <img src="reset.svg" alt="reset" className="h-4" />Reset
-            </button>
+              Reset
+            </Button>
           </div>
         </form>
       </div>

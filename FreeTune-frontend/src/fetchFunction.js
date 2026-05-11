@@ -22,7 +22,7 @@ export const fetchFunction = async (endPoints, methodType = "GET", data = null) 
     const request = await fetch(` http://localhost:3000/api/v1/${endPoints}`, options)
   
     const response = await request.json()
-
+    console.log(response)
     return response
 
 }

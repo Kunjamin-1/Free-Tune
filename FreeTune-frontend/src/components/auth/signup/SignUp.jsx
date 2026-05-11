@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ToastContainer, toast, Slide } from 'react-toastify';
-import { UserContext } from "../context/user/UserContext";
+import { UserContext } from "../../../context/user/UserContext";
 import { Link, useNavigate,useLocation } from "react-router-dom";
-import Loader from "./Loader";
+import Loader from "../../Loader";
 
 const SignUp = () => {
     const [showPassword, setShowPassword] = useState(false)

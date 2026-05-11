@@ -114,7 +114,7 @@ const logoutUser = asyncHandler(async (req, res) => {
             new: true
         }
     ).select("-password -refreshToken -avatarPublicId")
-
+    
     if (!updatedUser) {
         throw new ApiError(500, "error occured while logging out")
     }

@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
-import { UserContext } from "../context/user/UserContext";
-import { MusicContext } from "../context/music/MusicContext";
+import { UserContext } from "../../context/user/UserContext";
+import { MusicContext } from "../../context/music/MusicContext";
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
-import Loader from "./Loader";
+import Loader from "../Loader";
+import Button from "../ui/Button";
 
-const DeleteUser = ({ deleteRef }) => {
+const DeleteProfile = ({ deleteRef }) => {
   const [deleteBtnClick, setDeleteBtnClick] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
@@ -182,9 +183,11 @@ const DeleteUser = ({ deleteRef }) => {
               >
                 Cancel
               </label>
-              <button onClick={deleteAccount} className="bg-red-600 cursor-pointer hover:opacity-90 px-4 py-2 rounded-lg text-white font-medium transition-all">
+              <Button 
+              buttonFunction={deleteAccount}
+               buttonStyle="bg-red-600 cursor-pointer hover:opacity-90 px-4 py-2 rounded-lg text-white font-medium transition-all">
                 Delete
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -193,4 +196,4 @@ const DeleteUser = ({ deleteRef }) => {
   );
 }
 
-export default DeleteUser
+export default DeleteProfile

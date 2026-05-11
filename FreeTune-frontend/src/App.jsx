@@ -9,10 +9,10 @@ import {
 } from "react-router-dom";
 import Recivedsong from './components/RecivedSong';
 import MusicState from './context/music/MusicState';
-import SignUp from './components/SignUp';
+import SignUp from './components/auth/signup/SignUp';
 import UserState from './context/user/UserState';
-import Login from './components/Login';
-import UserProfile from './components/UserProfile';
+import Login from './components/auth/login/Login';
+import UserProfile from './components/profile/UserProfile';
 import UploadMusic from './components/UploadMusic';
 import MusicPlayer from './components/MusicPlayer';
 
