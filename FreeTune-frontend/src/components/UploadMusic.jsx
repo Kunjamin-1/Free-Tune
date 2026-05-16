@@ -2,6 +2,7 @@ import { useRef, useState, useContext } from "react";
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { MusicContext } from "../context/music/MusicContext";
 import Loader from "./Loader";
+import Button from "./ui/Button";
 
 const UploadMusic = () => {
 
@@ -212,12 +213,14 @@ const UploadMusic = () => {
 
             <div className="flex flex-col sm:flex-row justify-end slide-in">
 
-              <button onClick={uploadSong} className="px-8 py-3 gradient-purple-blue text-white rounded-lg cursor-pointer hover:from-purple-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 font-medium pulse-glow hover:shadow-2xl relative overflow-hidden gradient-shift">
+              <Button
+               buttonFunction={uploadSong}
+                buttonStyle="px-8 py-3 gradient-purple-blue text-white rounded-lg cursor-pointer hover:from-purple-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 font-medium pulse-glow hover:shadow-2xl relative overflow-hidden gradient-shift">
                 <div className="absolute inset-0 bg-linear-to-tl from-purple-500 to-blue-600  gradient-shift"></div>
                 <span className="relative z-10">
                   <i className="fas fa-upload mr-2"></i> Upload Track
                 </span>
-              </button>
+              </Button>
             </div>
           </div>
         </div>

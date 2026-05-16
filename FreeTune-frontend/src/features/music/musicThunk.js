@@ -2,8 +2,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { addSharedMusic, deleteMusic, getAllMusic, getAllSharedMusic, removeSharedMusic, shareMusic, uploadMusic } from "./musicService";
 
 
-const getAllMusicThunk = createAsyncThunk(
-    "blog/getAllMusic",
+export const getAllMusicThunk = createAsyncThunk(
+    "music/getAllMusic",
  async (_,thunkApi) => {
 try {
       return await getAllMusic()
@@ -17,8 +17,8 @@ try {
    
 )
 
-const uploadMusicThunk = createAsyncThunk(
-    "blog/uploadMusic",
+export const uploadMusicThunk = createAsyncThunk(
+    "music/uploadMusic",
  async (uploadMusicCredentials,thunkApi) => {
  try {
      return await uploadMusic(uploadMusicCredentials);
@@ -32,8 +32,8 @@ const uploadMusicThunk = createAsyncThunk(
 
 )
 
-const shareMusicThunk = createAsyncThunk(
-    "blog/shareMusic",
+export const shareMusicThunk = createAsyncThunk(
+    "music/shareMusic",
  async (shareMusicCredentials,thunkApi) => {
     try {
         return await shareMusic(shareMusicCredentials)
@@ -47,8 +47,8 @@ const shareMusicThunk = createAsyncThunk(
 )
 
 
-const getAllSharedMusicThunk = createAsyncThunk(
-    "blog/getAllSharedMusic",
+export const getAllSharedMusicThunk = createAsyncThunk(
+    "music/getAllSharedMusic",
  async (_,thunkApi) => {
  try {
      return await getAllSharedMusic();
@@ -62,8 +62,8 @@ const getAllSharedMusicThunk = createAsyncThunk(
 )
 
 
-const addSharedMusicThunk = createAsyncThunk(
-    "blog/addSharedMusic",
+export const addSharedMusicThunk = createAsyncThunk(
+    "music/addSharedMusic",
  async (addSharedMusicCredentials,thunkApi) => {
   try {
     return await addSharedMusic(addSharedMusicCredentials)
@@ -77,8 +77,8 @@ const addSharedMusicThunk = createAsyncThunk(
 )
 
 
-const removeSharedMusicThunk = createAsyncThunk(
-    "blog/removeSharedMusic",
+export const removeSharedMusicThunk = createAsyncThunk(
+    "music/removeSharedMusic",
 async (removeSharedMusicCredentials,thunkApi) => {
   try {
     return await removeSharedMusic(removeSharedMusicCredentials)
@@ -92,8 +92,8 @@ async (removeSharedMusicCredentials,thunkApi) => {
 )
  
 
-const deleteMusicThunk = createAsyncThunk(
-    "blog/deleteMusic",
+export const deleteMusicThunk = createAsyncThunk(
+    "music/deleteMusic",
  async (deleteMusicCredentials,thunkApi) => {
  try {
      return await deleteMusic(deleteMusicCredentials)

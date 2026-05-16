@@ -20,9 +20,67 @@ const initialState = {
 };
 
 const musicSlice = createSlice({
-  name: "auth",
+  name: "music",
   initialState,
   reducers: {},
+  extraReducers:(builder)=>{
+
+    builder.addMatcher(
+      (action)=>{
+        return (
+          action.type.startsWith("music/") &&
+          action.type.endsWith("/pending")
+        )
+      },
+      (state,action)=>{
+        const actionName = action.type.split("/")[1]
+
+        state.loading[actionName] = true
+
+      }
+    )
+
+    builder.addMatcher(
+      (action)=>{
+        return (
+          action.type.startsWith("music/") &&
+          action.type.endsWith("/fulfilled")
+        )
+      },
+      (state,action)=>{
+        const actionName = action.type.split("/")[1]
+        state.loading[actionName] = false
+        state.message = action.payload?.message || undefined
+        state.success = action.payload?.success || false
+        if(actionName === "getAllMusic"){
+          state.allMusicData = action.payload?.body ?? []
+        }else if(actionName === "getAllSharedMusic"){
+          state.allSharedSongs = action.payload?.body ?? []
+        }
+
+
+      }
+    )
+
+    builder.addMatcher(
+      (action)=>{
+        return (
+          action.type.startsWith("music/") &&
+          action.type.endsWith("/rejected")
+        )
+      },
+      (state,action)=>{
+        const actionName = action.type.split("/")[1]
+
+        state.loading[actionName] = false
+
+        state.message = action.payload?.message || "request failed"
+        state.success = action.payload?.success || false
+
+      }
+    )
+
+  }
 });
 
 export const {} = musicSlice.actions;
