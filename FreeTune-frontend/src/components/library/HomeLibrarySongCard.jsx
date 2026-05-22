@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { MusicContext } from '../context/music/MusicContext'
+import { MusicContext } from '../../context/music/MusicContext'
 
 
 const HomeLibrarySongCard = ({ musicData }) => {

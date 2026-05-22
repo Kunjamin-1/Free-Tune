@@ -7,7 +7,7 @@ export const fetchFunction = async (endPoints, methodType = "GET", data = null) 
         },
         credentials: "include",
     }
-  
+
     if (data && methodType !== "GET") {
         if (data instanceof FormData) {
             options.body = data;

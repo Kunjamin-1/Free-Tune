@@ -26,7 +26,6 @@ const RecivedSongCard = () => {
         }
       </main>
 
-     
     </div>
   )
 }

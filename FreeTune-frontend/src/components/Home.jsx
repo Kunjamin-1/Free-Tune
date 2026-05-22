@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import IntroSection from "./IntroSection";
 import { MusicContext } from "../context/music/MusicContext";
-import HomeLibrary from "./HomeLibrary";
+import HomeLibrary from "../components/library/HomeLibrary";
 import QuickStats from "./QuickStats";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";

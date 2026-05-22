@@ -1,15 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isActionCreator } from "@reduxjs/toolkit";
 import { loginUserThunk } from "./authThunk";
 
 const initialState = {
   userData: null,
   loading: {
-    registeruser: false,
-    loginuser: false,
-    logoutuser: false,
+    registerUser: false,
+    loginUser: false,
+    logoutUser: false,
     updateDetails: false,
     add: false,
-    deleteuser: false,
+    deleteUser: false,
     getDetailOfUser: false,
     deleteAvatar: false,
   },
@@ -29,6 +29,7 @@ const authSlice = createSlice({
         );  
       },
       (state, action) => {
+        console.log(action)
         const actionName = action.type.split("/")[1];
         state.loading[actionName] = true;
 

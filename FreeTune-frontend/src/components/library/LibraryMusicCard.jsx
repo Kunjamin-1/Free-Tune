@@ -1,7 +1,7 @@
 import React, { useRef, useContext, useState } from "react";
 import { ToastContainer, toast, Slide } from 'react-toastify';
-import { MusicContext } from '../context/music/MusicContext'
-import ShareSong from "./ShareSong";
+import { MusicContext } from '../../context/music/MusicContext'
+import ShareSong from "../ShareSong";
 
 const LibraryMusicCard = ({ musicData }) => {
   const {getAllMusic, isSongPlaying, setIsSongPlaying, currentSong,  setCurrentSong, deleteMusic } = useContext(MusicContext)

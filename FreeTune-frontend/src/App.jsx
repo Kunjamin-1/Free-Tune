@@ -1,7 +1,7 @@
 import './App.css'
 import Navbar from './components/Navbar'
 import Home from './components/Home'
-import Library from './components/Library';
+import Library from './components/library/Library';
 import {
   BrowserRouter as Router,
   Route,

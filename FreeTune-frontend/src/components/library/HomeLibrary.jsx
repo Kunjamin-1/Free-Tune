@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { MusicContext } from '../context/music/MusicContext'
+// import { MusicContext } from '../context/music/MusicContext'
 import { useNavigate } from 'react-router-dom'
 import HomeLibrarySongCard from "./HomeLibrarySongCard"
 import { useSelector } from 'react-redux'
@@ -9,6 +9,7 @@ const HomeLibrary = () => {
   const [homeDisplayMusics, setHomeDisplayMusics] = useState([])
   const navigate = useNavigate()
   const {allMusicData} = useSelector((state)=>state.music)
+
   useEffect(() => {
     if(allMusicData.length > 4){
      const slicedArr = allMusicData.slice(0,4)

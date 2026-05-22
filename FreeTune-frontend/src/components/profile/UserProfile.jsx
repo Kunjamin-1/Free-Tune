@@ -8,12 +8,15 @@ import Loader from "../Loader";
 import { UserContext } from "../../context/user/UserContext";
 import { MusicContext } from "../../context/music/MusicContext";
 import Button from "../ui/Button";
+import { useSelector } from "react-redux";
 
 const UserProfile = () => {
   const { logoutUser, getUserDetails, addAvatar, deleteAvatar } =
     useContext(UserContext);
   const { getAllMusic, isSongPlaying, setIsSongPlaying } =
     useContext(MusicContext);
+
+  const { allMusicData } = useSelector((state) => state.music);
 
   const [showForm, setShowForm] = useState(false);
   const [userData, setUserData] = useState({});
@@ -63,7 +66,9 @@ const UserProfile = () => {
     if (localStorage.getItem("accessToken")) {
       fetchUserData();
     }
-    getAllMusic();
+    if (allMusicData.length === 0) {
+      getAllMusic();
+    }
   }, []);
 
   const uploadUserAvatar = () => {

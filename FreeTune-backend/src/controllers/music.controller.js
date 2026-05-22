@@ -64,8 +64,6 @@ const uploadMusic = asyncHandler(async (req, res) => {
 
 const getAllMusic = asyncHandler(async (req, res) => {
 
-    console.log("musics")
-
     const allMusic = await Music.find({ user: req?.user?._id }).select("-audioPublicId -thumbnailPublicId")
 
     if (!allMusic) {
