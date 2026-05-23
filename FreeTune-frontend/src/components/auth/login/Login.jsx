@@ -12,10 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUserThunk } from "../../../features/auth/authThunk";
 
 const Login = () => {
-  const [tempLoginData, setTempLoginData] = useState({});
-  const [showLoader, setShowLoader] = useState(false);
-
-  const { loginUser} = useContext(UserContext);
+  const { loginUser } = useContext(UserContext);
   const { musics, getAllMusic } = useContext(MusicContext);
 
   const navigate = useNavigate();
@@ -24,51 +21,51 @@ const Login = () => {
 
   const method = useForm();
 
-  const {loading} = useSelector((state)=>state.auth)
+  const { loading } = useSelector((state) => state.auth);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
+  const toastOptions = {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+    transition: Slide,
+  };
+
+  const onError = (error) => {
+    console.log(error);
+    for (const err in error) {
+      console.log(err);
+      toast.error(error[err].message, toastOptions);
+    }
+  };
+
+  const submitLoginDetail = async (data) => {
+    const response = await dispatch(
+      loginUserThunk({
+        email: data.email,
+        password: data.password,
+      }),
+    ).unwrap();
+
+    if (response.success) {
+      localStorage.setItem("accessToken", response.body.accessToken);
+      toast.success(response.message, toastOptions);
+      navigate("/");
+    } else {
+      toast.error(response.message, toastOptions);
+    }
+  };
 
   useEffect(() => {
     if (location.pathname === "/login")
       document.querySelector("title").innerText = "FreeTune - Login";
   }, []);
-
-  const loginInputChange = (e) => {
-    setTempLoginData({ ...tempLoginData, [e.target.name]: e.target.value });
-  };
-
-  const submitLoginDetail = async (data) => {
-
-    const toastOptions = {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-      transition: Slide,
-    };
-    console.log(loading.loginUser)
-
-    const response = await dispatch(loginUserThunk({
-      email: data.email,
-      password: data.password,
-    })).unwrap();
-
-    console.log(loading.loginUser)
-    if (response.success) {
-      localStorage.setItem("accessToken", response.body.accessToken);
-      setShowLoader(false);
-      toast.success(response.message, toastOptions);
-      navigate("/");
-    } else {
-      toast.error(response.message, toastOptions);
-      setShowLoader(false);
-    }
-  };
-
 
   return (
     <FormProvider {...method}>
@@ -99,9 +96,8 @@ const Login = () => {
           <div className="bg-gray-800 rounded-2xl shadow-2xl overflow-hidden">
             <div className="p-8">
               <form
-                
                 method="post"
-                onSubmit={method.handleSubmit(submitLoginDetail)}
+                onSubmit={method.handleSubmit(submitLoginDetail, onError)}
                 className="space-y-6"
               >
                 {loginFields.map((field) => {
@@ -114,7 +110,11 @@ const Login = () => {
                       authImgStyle={field?.authImgStyle}
                       authInputPlaceholder={field?.authInputPlaceholder}
                       authInputName={field?.authInputName}
-                      authInputValidation={field.authInputName !== "confirmPassword"? field?.authInputValidation:field?.authInputValidation(method.getValues)}
+                      authInputValidation={
+                        field.authInputName !== "confirmPassword"
+                          ? field?.authInputValidation
+                          : field?.authInputValidation(method.getValues)
+                      }
                       authInputType={field?.authInputType}
                       authEyeImageSrc={field?.authEyeImageSrc}
                       isInputPassword={field?.isInputPassword}

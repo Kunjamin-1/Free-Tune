@@ -42,7 +42,6 @@ export const loginFields = [
     authInputPlaceholder: "Enter your password",
     authInputName: "password",
     authInputValidation: loginValidation.password,
-    // authEyeToggleFunc: () => setShowPassword(!showPassword),
     isInputPassword : true
   },
   {

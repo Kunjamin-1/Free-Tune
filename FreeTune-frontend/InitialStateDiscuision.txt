@@ -30,54 +30,128 @@ signup:- px-4  bg-gray-700  border-gray-700   placeholder-gray-400 focus:outline
 
 upload-
 
-final :- w-full py-3 border rounded-lg text-white focus:ring-2 focus:ring-purple-500       <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">
-                  Email Address
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <img
-                      src="e-mail.svg"
-                      alt="e-mail"
-                      className=" text-gray-400 h-4"
-                    />
-                  </div>
-                  <input
-                    onChange={loginInputChange}
-                    type="email"
-                    required
-                    placeholder="Enter your email"
-                    className="w-full pl-10 pr-4 py-3 bg-gray-700 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-purple-500 outline-none"
-                    name="email"
-                  />
-                </div>
-              </div>
+final :- w-full py-3 border rounded-lg text-white focus:ring-2 focus:ring-purple-500     
 
-              <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">
-                  Password
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <img src="lock.svg" alt="lock" className="h-4" />
-                  </div>
-                  <input
-                    onChange={loginInputChange}
-                    type={showLoginPassword ? "text" : "password"}
-                    placeholder="Enter your password"
-                    className="w-full pl-10 pr-12 py-3 bg-gray-700 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-purple-500 outline-none "
-                    name="password"
-                  />
-                  <button
-                    type="button"
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                  >
-                    <img
-                      onClick={eyeClick}
-                      src={`${showLoginPassword ? "eye" : "eye-slash"}.svg`}
-                      alt={showLoginPassword ? "eye" : "eye-slash"}
-                      className="h-4 cursor-pointer"
-                    />
-                  </button>
-                </div>
-              </div>
+      <div>
+                            <label
+                                htmlFor="fullName"
+                                className="block text-sm font-medium text-white mb-2"
+                            >
+                                Full Name
+                            </label>
+                            <input
+                                onChange={enteredInputDetail}
+                                type="text"
+                                id="fullName"
+                                className="w-full px-4 py-3 bg-gray-700 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+                                placeholder="Enter your full name"
+                            />
+                        </div>
+                        <div>
+                            <label
+                                htmlFor="username"
+                                className="block text-sm font-medium text-white mb-2"
+                            >
+                                Username
+                            </label>
+                            <input
+                                onChange={enteredInputDetail}
+                                type="text"
+                                id="username"
+                                className="w-full px-4 py-3 bg-gray-700 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+                                placeholder="Choose a unique username"
+                            />
+                        </div>
+
+
+                        <div>
+                            <label
+                                htmlFor="email"
+                                className="block text-sm font-medium text-white mb-2"
+                            >
+                                Email Address
+                            </label>
+                            <input
+                                onChange={enteredInputDetail}
+                                type="email"
+                                id="email"
+                                required
+                                className="w-full px-4 py-3 bg-gray-700 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+                                placeholder="your@email.com"
+                            />
+                        </div>
+
+                        <div className="relative">
+                            <label
+                                htmlFor="password"
+                                className="block text-sm font-medium text-white mb-2"
+                            >
+                                Password
+                            </label>
+                            <input
+                                onChange={enteredInputDetail}
+                                type={showPassword ? "text" : "password"}
+                                id="password"
+                                className="w-full px-4 py-3 bg-gray-700 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+                                placeholder="Create a strong password"
+                            />
+                            <img onClick={showPasswordClick} src={`${showPassword ? "eye" : "eye-slash"}.svg`} alt={showPassword ? "eye" : "eye-slash"} className="absolute right-3 h-4 cursor-pointer top-11" />
+                        </div>
+
+
+                        <div className="relative">
+                            <label
+                                htmlFor="confirm-password"
+                                className="block text-sm font-medium text-white mb-2"
+                            >
+                                Confirm Password
+                            </label>
+                            <input
+                                onChange={enteredInputDetail}
+                                type={showConfirmPassword ? "text" : "password"}
+                                id="confirmPassword"
+                                className="w-full px-4 py-3 bg-gray-700 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+                                placeholder="Confirm your password"
+                            />
+                            <img onClick={showConfirmPasswordClick} src={`${showConfirmPassword ? "eye" : "eye-slash"}.svg`} alt={showConfirmPassword ? "eye" : "eye-slash"} className="absolute right-3 h-4 cursor-pointer top-11" />
+                        </div>
+
+   if (!tempSignUpData.fullName) {
+      toast.error("full name is required", toastOptions);
+      throw new Error("full name is required");
+    } else {
+      formData.fullName = tempSignUpData.fullName.trim();
+    }
+
+    if (!/^[A-Za-z\s]+$/.test(tempSignUpData.fullName)) {
+      toast.error("only alphabets are allowed in full name", toastOptions);
+      throw new Error("only alphabets are allowed in full name");
+    }
+
+    if (!tempSignUpData.username) {
+      toast.error("username is required", toastOptions);
+      throw new Error("username is required");
+    } else {
+      formData.username = tempSignUpData.username.trim();
+    }
+
+    if (tempSignUpData.email) {
+      formData.email = tempSignUpData.email.trim();
+    }
+
+    if (!tempSignUpData.password) {
+      toast.error("password is required", toastOptions);
+      throw new Error("password is required");
+    } else {
+      formData.password = tempSignUpData.password.trim();
+    }
+
+    if (!tempSignUpData.confirmPassword) {
+      toast.error("confirm password is required", toastOptions);
+      throw new Error("confirm password is required");
+    }
+
+    if (tempSignUpData.password !== tempSignUpData.confirmPassword) {
+      toast.error("confirm password did not match", toastOptions);
+      throw new Error("confirm password did not match");
+    }

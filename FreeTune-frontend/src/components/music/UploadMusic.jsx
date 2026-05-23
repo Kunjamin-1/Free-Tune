@@ -1,23 +1,23 @@
 import { useRef, useState, useContext } from "react";
 import { ToastContainer, toast, Slide } from 'react-toastify';
-import { MusicContext } from "../context/music/MusicContext";
-import Loader from "./Loader";
-import Button from "./ui/Button";
+import { MusicContext } from "../../context/music/MusicContext";
+import Loader from "../Loader";
+import Button from "../ui/Button";
 
 const UploadMusic = () => {
 
-  const audioRef = useRef(null)
-  const imageRef = useRef(null)
+  const uploadAudioRef = useRef(null)
+  const uploadImageRef = useRef(null)
 
   const [tempFormData, setTempFormData] = useState({})
   const [showLoader, setShowLoader] = useState(false)
   const { uploadMusic } = useContext(MusicContext)
 
   const handleAudioClick = () => {
-    audioRef.current.click()
+    uploadAudioRef.current.click()
   }
   const handleImageClick = () => {
-    imageRef.current.click()
+    uploadImageRef.current.click()
   }
   const submitAudio = (e) => {
     const audioFile = e.target.files[0]
@@ -143,7 +143,7 @@ const UploadMusic = () => {
                     </span>
                   ))}
                 </div>
-                <input type="file" required className="hidden" accept="audio/*" onChange={submitAudio} ref={audioRef} />
+                <input type="file" required className="hidden" accept="audio/*" onChange={submitAudio} ref={uploadAudioRef} />
               </div>
             </div>
 
@@ -204,7 +204,7 @@ const UploadMusic = () => {
                     <p className={`text-xs  ${tempFormData.thumbnail && "hidden"} text-gray-500 group-hover:text-gray-400 transition-colors duration-300`}>
                       JPG, PNG (min 500x500px)
                     </p>
-                    <input type="file" className="hidden" accept="image/*" onChange={submitThumbnail} ref={imageRef} />
+                    <input type="file" className="hidden" accept="image/*" onChange={submitThumbnail} ref={uploadImageRef} />
                   </div>
                 </div>
               </div>

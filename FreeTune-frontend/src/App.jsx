@@ -13,8 +13,8 @@ import SignUp from './components/auth/signup/SignUp';
 import UserState from './context/user/UserState';
 import Login from './components/auth/login/Login';
 import UserProfile from './components/profile/UserProfile';
-import UploadMusic from './components/UploadMusic';
-import MusicPlayer from './components/MusicPlayer';
+import UploadMusic from './components/music/UploadMusic';
+import MusicPlayer from './components/music/MusicPlayer';
 
 function App() {
  

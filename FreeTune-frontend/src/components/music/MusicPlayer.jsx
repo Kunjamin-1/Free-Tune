@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
-import { MusicContext } from '../context/music/MusicContext';
-import VolumeControl from './VolumeControl';
+import { MusicContext } from '../../context/music/MusicContext';
+import VolumeControl from '../VolumeControl';
 
 const MusicPlayer = () => {
   const { musics, isSongPlaying, currentSong, playSongRef, songProgress, setIsSongPlaying, setSongProgress, setCurrentSong } = useContext(MusicContext);

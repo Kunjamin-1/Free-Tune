@@ -26,7 +26,7 @@ const AuthInput = ({
   return (
    <div className="slide-in mb-4">
   {authLabelContent && (
-    <label className={authLabelStyle}>
+    <label className={`${authLabelStyle} capitalize`}>
       {authLabelContent}
     </label>
   )}
@@ -46,7 +46,7 @@ const AuthInput = ({
 
     {/* Input */}
     <input
-      type={!showPassword && isInputPassword ? "password" : "text"}
+      type={!showPassword && isInputPassword ? authInputType : "text"}
       placeholder={authInputPlaceholder}
       name={authInputName}
       {...register(authInputName, authInputValidation)}
@@ -67,13 +67,6 @@ const AuthInput = ({
       </div>
     )}
   </div>
-
-  {/* Error Message */}
-  {errors[authInputName] && (
-    <p className="text-red-500 mt-2 text-xs">
-      {errors[authInputName]?.message || "This field is required"}
-    </p>
-  )}
 </div>
   );
 };

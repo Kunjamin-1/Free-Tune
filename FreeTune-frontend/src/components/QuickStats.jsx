@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import { MusicContext } from "../context/music/MusicContext";
 import { useSelector } from "react-redux";
 
 const QuickStats = () => {
-  const { musics } = useContext(MusicContext);
   const [musicStats, setMusicStats] = useState({
     totalSongs: 0,
     totalDuration: 0,
