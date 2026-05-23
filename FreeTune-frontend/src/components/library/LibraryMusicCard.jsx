@@ -2,10 +2,15 @@ import React, { useRef, useContext, useState } from "react";
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { MusicContext } from '../../context/music/MusicContext'
 import ShareSong from "../ShareSong";
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentSong, setIsSongPlaying } from "../../features/music/musicSlice";
 
 const LibraryMusicCard = ({ musicData }) => {
-  const {getAllMusic, isSongPlaying, setIsSongPlaying, currentSong,  setCurrentSong, deleteMusic } = useContext(MusicContext)
+  const { deleteMusic } = useContext(MusicContext)
 
+  const {allMusicData,isSongPlaying,currentSong} = useSelector(state=>state.music)
+
+  const dispatch = useDispatch()
   const temp = useRef(null)
 
   const [shareSong, setShareSong] = useState(false)
@@ -24,10 +29,10 @@ const LibraryMusicCard = ({ musicData }) => {
 
   const playSong = (song) => {
     if (currentSong?._id === song._id) {
-      setIsSongPlaying(!isSongPlaying); // toggle pause/play
+      dispatch(setIsSongPlaying({isSongPlaying:!isSongPlaying})); // toggle pause/play
     } else {
-      setCurrentSong(song);             // new song to play
-      setIsSongPlaying(true);
+      dispatch(setCurrentSong({currentSong:song}));             // new song to play
+      dispatch(setIsSongPlaying({isSongPlaying:!isSongPlaying}));
     }
   }
 
@@ -40,7 +45,7 @@ const LibraryMusicCard = ({ musicData }) => {
     
     if (response.success) {
       toast.success(response.message, toastOptions)
-      getAllMusic()
+      allMusicData()
     } else {
       toast.error(response.message, toastOptions)
     }

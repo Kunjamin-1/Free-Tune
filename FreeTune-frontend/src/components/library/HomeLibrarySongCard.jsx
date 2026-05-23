@@ -1,18 +1,21 @@
 import React, { useContext, useState } from 'react'
 import { MusicContext } from '../../context/music/MusicContext'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCurrentSong, setIsSongPlaying } from '../../features/music/musicSlice'
 
 
 const HomeLibrarySongCard = ({ musicData }) => {
-  const { isSongPlaying, setIsSongPlaying, currentSong, setCurrentSong } = useContext(MusicContext)
 
+  const {isSongPlaying,currentSong} =  useSelector(state=>state.music)
+  const dispatch = useDispatch()
 
   const controlSong = (song) => {
-
     if (currentSong._id === song._id) {
-      setIsSongPlaying(!isSongPlaying); // toggle pause/play
+
+      dispatch(setIsSongPlaying({isSongPlaying:!isSongPlaying})); // toggle pause/play
     } else {
-      setCurrentSong(song);             // new song to play
-      setIsSongPlaying(true);
+      dispatch(setCurrentSong({currentSong:song}));             // new song to play
+      dispatch(setIsSongPlaying({isSongPlaying:!isSongPlaying}));
     }
 
   };

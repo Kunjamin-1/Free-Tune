@@ -1,9 +1,12 @@
 import React, { useContext, useEffect } from 'react';
 import { MusicContext } from '../../context/music/MusicContext';
 import VolumeControl from '../VolumeControl';
+import { useSelector } from 'react-redux';
 
 const MusicPlayer = () => {
-  const { musics, isSongPlaying, currentSong, playSongRef, songProgress, setIsSongPlaying, setSongProgress, setCurrentSong } = useContext(MusicContext);
+  const { musics, playSongRef, songProgress, setIsSongPlaying, setSongProgress, setCurrentSong } = useContext(MusicContext);
+
+  const {isSongPlaying,currentSong} = useSelector(state=>state.music)
 
   useEffect(() => {
     const audio = playSongRef.current;
