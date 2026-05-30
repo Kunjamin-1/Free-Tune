@@ -6,6 +6,7 @@ import {
   getUserDetails,
   getUserFriendDetail,
   loginUser,
+  logoutUser,
   registerUser,
   updateUser,
 } from "./authService";
@@ -42,7 +43,7 @@ export const logoutUserThunk = createAsyncThunk(
   "auth/logoutUser",
   async (_, thunkApi) => {
     try {
-      return await fetchFunction("user/logoutUser", "GET");
+      return await logoutUser("user/logoutUser", "GET");
     } catch (error) {
       return thunkApi.rejectWithValue({
         success: false,

@@ -3,9 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   allMusicData: [],
   allSharedSongs: [],
-  isSongPlaying: false,
-  currentSong: {},
-  songProgress: 0,
   loading: {
     uploadMusic: false,
     deleteMusic: false,
@@ -17,8 +14,6 @@ const initialState = {
   },
   isSongPlaying: false,
   currentSong: {},
-  playSongRef: null,
-  songProgress: 0,
   success: null,
   message: null,
 };
@@ -34,14 +29,6 @@ const musicSlice = createSlice({
     setCurrentSong: (state, action) => {
       state.currentSong = action.payload?.currentSong;
     },
-
-    setPlaySongRef: (state, action) => {
-      state.playSongRef = action.payload?.playSongRef
-    },
-
-    setSongProgress:(state,action)=>{
-      state.songProgress = action.payload?.songProgress
-    }
   },
 
   extraReducers: (builder) => {
@@ -95,5 +82,5 @@ const musicSlice = createSlice({
   },
 });
 
-export const {setIsSongPlaying,setCurrentSong,setPlaySongRef,setSongProgress} = musicSlice.actions;
+export const {setIsSongPlaying,setCurrentSong} = musicSlice.actions;
 export default musicSlice.reducer;

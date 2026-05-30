@@ -10,12 +10,19 @@ const HomeLibrarySongCard = ({ musicData }) => {
   const dispatch = useDispatch()
 
   const controlSong = (song) => {
-    if (currentSong._id === song._id) {
+    
+    // if(Object.keys(currentSong).length === 0){
+    //   dispatch(setIsSongPlaying({currentSong:song}))
+    //   dispatch(setIsSongPlaying({isSongPlaying:!isSongPlaying}));
+    // }
 
+    if (currentSong._id === song._id) {
       dispatch(setIsSongPlaying({isSongPlaying:!isSongPlaying})); // toggle pause/play
     } else {
+      console.log("new song")
       dispatch(setCurrentSong({currentSong:song}));             // new song to play
-      dispatch(setIsSongPlaying({isSongPlaying:!isSongPlaying}));
+      dispatch(setIsSongPlaying({isSongPlaying:true}));
+
     }
 
   };

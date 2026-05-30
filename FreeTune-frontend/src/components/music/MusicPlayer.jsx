@@ -1,20 +1,33 @@
-import React, { useContext, useEffect } from 'react';
-import { MusicContext } from '../../context/music/MusicContext';
-import VolumeControl from '../VolumeControl';
-import { useSelector } from 'react-redux';
+import React, { useContext, useEffect, useState } from "react";
+import { MusicContext } from "../../context/music/MusicContext";
+import VolumeControl from "../VolumeControl";
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentSong, setIsSongPlaying } from "../../features/music/musicSlice";
 
 const MusicPlayer = () => {
-  const { musics, playSongRef, songProgress, setIsSongPlaying, setSongProgress, setCurrentSong } = useContext(MusicContext);
+  const [progress, setProgress] = useState(0);
 
-  const {isSongPlaying,currentSong} = useSelector(state=>state.music)
+  const {
+    playSongRef,
+    setPlaySongRef
+  } = useContext(MusicContext);
+
+  const {
+    allMusicData,
+    isSongPlaying,
+    currentSong,
+  } = useSelector((state) => state.music);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const audio = playSongRef.current;
+
     if (!audio) return;
 
     const handleTimeUpdate = () => {
-      const progress = (audio.currentTime / audio.duration) * 100 || 0;
-      setSongProgress(progress);
+      const audioProgress = (audio.currentTime / audio.duration) * 100 || 0;
+      setProgress(audioProgress);
     };
 
     const handleLoaded = () => {
@@ -24,8 +37,8 @@ const MusicPlayer = () => {
     };
 
     const handleEnded = () => {
-      setIsSongPlaying(false);
-      setSongProgress(0);
+      dispatch(setIsSongPlaying());
+      setProgress(0);
     };
 
     if (currentSong?.audioFile) {
@@ -34,24 +47,24 @@ const MusicPlayer = () => {
         audio.load();
       }
 
-      audio.addEventListener('timeupdate', handleTimeUpdate);
-      audio.addEventListener('loadedmetadata', handleLoaded);
-      audio.addEventListener('ended', handleEnded);
+      audio.addEventListener("timeupdate", handleTimeUpdate);
+      audio.addEventListener("loadedmetadata", handleLoaded);
+      audio.addEventListener("ended", handleEnded);
 
       if (isSongPlaying) {
         audio.play().catch(console.warn);
-        setSongProgress(0)
       } else {
         audio.pause();
+        setProgress(0);
       }
     } else {
       audio.pause();
     }
 
     return () => {
-      audio.removeEventListener('timeupdate', handleTimeUpdate);
-      audio.removeEventListener('loadedmetadata', handleLoaded);
-      audio.removeEventListener('ended', handleEnded);
+      audio.removeEventListener("timeupdate", handleTimeUpdate);
+      audio.removeEventListener("loadedmetadata", handleLoaded);
+      audio.removeEventListener("ended", handleEnded);
     };
   }, [currentSong, isSongPlaying]);
 
@@ -60,39 +73,39 @@ const MusicPlayer = () => {
     if (!audio) return;
     if (isSongPlaying) {
       audio.pause();
-      setIsSongPlaying(false);
-
+      dispatch(setIsSongPlaying());
     } else {
-      audio.play().then(() => setIsSongPlaying(true)).catch(console.error);
+      audio
+        .play()
+        .then(() => dispatch(setIsSongPlaying()))
+        .catch(console.error);
     }
   };
 
   const playPreviousSong = () => {
-    let currentSongIndex = musics.indexOf(currentSong)
+    let currentSongIndex = allMusicData.indexOf(currentSong);
 
     if (currentSongIndex === 0) {
-      setCurrentSong(musics[musics.length - 1])
+      dispatch(setCurrentSong(allMusicData[allMusicData.length - 1]));
     } else {
-      setCurrentSong(musics[currentSongIndex - 1])
+      dispatch(setCurrentSong(allMusicData[currentSongIndex - 1]));
     }
-    setSongProgress(0)
-  }
+    setProgress(0);
+  };
   const playNextSong = () => {
-
-    let currentSongIndex = musics.indexOf(currentSong)
-    if ((musics.length - 1) === currentSongIndex) {
-      setCurrentSong(musics[0])
+    let currentSongIndex = allMusicData.indexOf(currentSong);
+    if (allMusicData.length - 1 === currentSongIndex) {
+      dispatch(setCurrentSong(musics[0]));
     } else {
-      setCurrentSong(musics[currentSongIndex + 1])
+      dispatch(setCurrentSong(musics[currentSongIndex + 1]));
     }
-    setSongProgress(0)
-
-  }
+    setProgress(0);
+  };
 
   return (
     <footer>
       <div
-        className={`bg-[#1F2937] fixed  ${isSongPlaying ? 'flex' : 'hidden'} bottom-0 h-20 w-full  transition-all ease-out sm:px-3 md:px-20 justify-between px-5 sm:justify-between items-center`}
+        className={`bg-[#1F2937] fixed  ${isSongPlaying ? "flex" : "hidden"} bottom-0 h-20 w-full  transition-all ease-out sm:px-3 md:px-20 justify-between px-5 sm:justify-between items-center`}
       >
         <div className=" flex justify-center items-center gap-1.5">
           <img
@@ -118,8 +131,8 @@ const MusicPlayer = () => {
             className="bg-purple-600 cursor-pointer text-white p-4 md:p-3 rounded-full hover:scale-125 transition-all ease-in"
           >
             <img
-              src={`${!isSongPlaying ? 'play' : 'pause'}.svg`}
-              alt={`${!isSongPlaying ? 'play' : 'pause'}`}
+              src={`${!isSongPlaying ? "play" : "pause"}.svg`}
+              alt={`${!isSongPlaying ? "play" : "pause"}`}
               className="h-5 md:h-4"
             />
           </div>
@@ -139,13 +152,22 @@ const MusicPlayer = () => {
       </div>
 
       {/* Progress bar */}
-      {isSongPlaying && <div className={`h-1 rounded-full ${songProgress === 0 ? 'hidden' : 'block'} fixed bottom-20 bg-purple-500`} style={{ width: `${songProgress}%` }}></div>}
+      {isSongPlaying && (
+        
+        <div
+          className={`h-1 rounded-full ${progress === 0 ? "hidden" : "block"} fixed bottom-20 bg-purple-500`}
+          style={{ width: `${progress}%` }}
+          ></div>
+        
+      )}
 
       {/* Progress circle */}
-      {isSongPlaying && <div
-        className={`h-3.5 w-3.5 ${songProgress === 0 ? 'hidden' : 'block'} rounded-full z-10 bg-purple-600 fixed bottom-18.5`}
-        style={{ left: `${songProgress}%` }}
-      ></div>}
+      {isSongPlaying && (
+        <div
+          className={`h-3.5 w-3.5 ${progress === 0 ? "hidden" : "block"} rounded-full z-10 bg-purple-600 fixed bottom-18.5`}
+          style={{ left: `${progress}%` }}
+        ></div>
+      )}
     </footer>
   );
 };
